@@ -1,4 +1,4 @@
-# MatchCraft: Probabilistic Restaurant Record Linkage
+# LinkLens: Probabilistic Restaurant Record Linkage
 
 Fellegi–Sunter probabilistic record linkage for identifying matching restaurant records across the Fodors and Zagat datasets.
 
