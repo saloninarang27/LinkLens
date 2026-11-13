@@ -1,0 +1,57 @@
+Dataset: Fodors 533 x Zagat 331 rows; labelled pairs train 567 (66 M), valid 190 (22 M), test 189 (22 M)
+
+field       m      u  w_agree w_disagree
+name    0.918  0.029   +4.990     -3.564
+addr    0.903  0.670   +0.430     -1.765
+city    0.918  0.806   +0.188     -1.242
+phone   0.948  0.007   +7.087     -4.249
+type    0.560  0.067   +3.068     -1.084
+
+Thresholds (from validation): T_L = +3.056, T_U = +3.056
+
+Worked example: Fodors 22 vs Zagat 240
+  name   yujean kang s gourmet chines | yujean kang s                Agree    +4.990
+  addr   67 n raymond ave             | 67 n raymond ave             Agree    +0.430
+  city   los angeles                  | pasadena                     Disagree -1.242
+  phone  818 585 0855                 | 818 585 0855                 Agree    +7.087
+  type   asian                        | chinese                      Disagree -1.084
+  W = +10.180 -> MATCH
+
+Agreement patterns in training (1 = agree):
+   name  addr  city phone  type        W   #M   #U  decision
+      1     1     1     1     1  +15.763   30    0  MATCH
+      1     1     0     1     1  +14.332    2    0  MATCH
+      1     0     1     1     1  +13.568    3    0  MATCH
+      1     1     1     1     0  +11.611   20    0  MATCH
+      1     1     0     1     0  +10.180    1    0  MATCH
+      1     0     1     1     0   +9.416    2    0  MATCH
+      0     1     1     1     1   +7.208    2    0  MATCH
+      0     1     1     1     0   +3.056    1    3  POSSIBLE
+      1     0     1     0     1   +2.233    0    2  NON-MATCH
+      0     1     0     1     0   +1.626    2    0  NON-MATCH
+      1     0     0     0     1   +0.802    0    2  NON-MATCH
+      1     1     1     0     0   +0.275    2    0  NON-MATCH
+      1     0     1     0     0   -1.919    1    3  NON-MATCH
+      1     0     0     0     0   -3.350    0    7  NON-MATCH
+      0     1     1     0     1   -4.127    0   18  NON-MATCH
+      0     1     0     0     1   -5.557    0    2  NON-MATCH
+      0     0     1     0     1   -6.322    0    4  NON-MATCH
+      0     0     0     0     1   -7.752    0    5  NON-MATCH
+      0     1     1     0     0   -8.279    0  271  NON-MATCH
+      0     1     0     0     0   -9.709    0   42  NON-MATCH
+      0     0     1     0     0  -10.474    0  103  NON-MATCH
+      0     0     0     0     0  -11.904    0   39  NON-MATCH
+
+Test set decisions:
+  MATCH       20 pairs  (true matches 20, non-matches 0)
+  POSSIBLE     2 pairs  (true matches 1, non-matches 1)
+  NON-MATCH  167 pairs  (true matches 1, non-matches 166)
+  POSSIBLE counted as MATCH      P=0.955 R=0.955 F1=0.955  (TP 21, FP 1, FN 1)
+  POSSIBLE counted as NON-MATCH  P=1.000 R=0.909 F1=0.952  (TP 20, FP 0, FN 2)
+
+Full run on all 176423 A x B pairs, ground truth = 112 true matches:
+  MATCH     true matches  103   non-matches      0
+  POSSIBLE  true matches    3   non-matches      7
+  NON-MATCH true matches    6   non-matches 176304
+
+self-checks passed
